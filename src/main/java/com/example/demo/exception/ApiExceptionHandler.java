@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = ApiRequestException.class)
+    @ExceptionHandler(value = ApiRequestException.class)  //tells what class type to handle can have more than 1 too as  {,,}
     public ResponseEntity<Object> handleApiRequestException(
             ApiRequestException e
     ) {

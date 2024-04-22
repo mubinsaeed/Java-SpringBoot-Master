@@ -30,15 +30,17 @@ public class Customer {
     private String name;
 
     @NotBlank(message = "password must be not empty")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  // This allows to send the password as body but not read it as we later use
+    // for get function @JSON Ignore
     private String password;
 
     @NotBlank(message = "email must be not empty")
-    @Email
+    @Email // all these are from starter validation no need to self implement parameter check in the api body
+    // we can also use REGEX in the @Email(Regex = "") to have pattern detection
     private String email;
 
-
-    @JsonProperty("customer_id")
+//Jackson serializable allows to send the data using the functions
+    @JsonProperty("customer_id")  //if we dont use that it would return as {id:1,...} now it would return as {customer_id:1,...}
     public Long getId() {
         return id;
     }
@@ -47,7 +49,7 @@ public class Customer {
         return name;
     }
 
-    @JsonIgnore
+    @JsonIgnore  //This allows not to send the attribute data to the viewer/client
     public String getPassword() {
         return password;
     }

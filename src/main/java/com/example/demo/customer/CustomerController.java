@@ -7,7 +7,7 @@ import java.util.List;
 
 @RequestMapping(path = "api/v1/customer")
 @RestController
-@Deprecated
+@Deprecated //shows that new api update is made
 public class CustomerController {
 
     private final CustomerService customerService;

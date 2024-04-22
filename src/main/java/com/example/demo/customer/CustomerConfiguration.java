@@ -31,6 +31,8 @@ public class CustomerConfiguration {
         };
     }
 
+
+    //As there are two implementation we use bean configration where the bool var is set above
     @Bean
     CustomerRepo customerRepo() {
         System.out.println("useFakeCustomerRepo = " + useFakeCustomerRepo);

@@ -14,9 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class CustomerService {
-
+//Here Logger specifically Log4j is used, used for debugging or for info just like print statement, we can also dump these log in file
     private final CustomerRepository customerRepository;
-
+    //public CustomerService(@Qualifier('fake') CustomerRepo customerRepo) can also be used if there are two bean implementation
+    //if there are no Qualifier than it would implement the primary bean
     List<Customer> getCustomers() {
         log.info("getCustomers was called");
         return customerRepository.findAll();
