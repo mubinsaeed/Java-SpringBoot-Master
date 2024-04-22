@@ -1,0 +1,67 @@
+@Bean annotation allow the instantiation of the class and doing some configration before an object is created
+For the parameter validation of request body we can either enforce that in the service class function or we can use
+the parameter validation library as spring-boot-starter-validation
+
+-------------Videos Topicwise Detail----------------------------------
+params validation v26 to v29
+exception handling v30 onwards
+custom exception v35 to v38
+OpenFeign v44 onwards v46
+Logging v47 to v50
+For maven packaging v60 to 64
+For integration testing v65 t0 66
+
+--------------Exception Handling------------------------------------
+
+For handling exceptions there like IllegalStateException to send it as the body message of req we can do as follows:
+1) In application properties  add  (not a good method)
+        server.error.include-message=  always
+        server.error.include-binding-errors = always
+        server.error.include-stacktrace=always  // production use never here
+
+
+2) Create a custom exception
+//Note that ApiException class is to have attributes to be sent as custom payload
+Not found is used in service layer as throw Not found("any message")
+
+
+MethodArgumentNotValidException e : No need to create a seperate class to handle the argument validation spring has it
+Example: @Blank(message="The name cannot be null") here when an invalid data is passed it implicitly throws MethodArgumentNotValidException
+Just create a handler function with no class annotation for now
+
+------------------------Actuators for webapp metrics evaluation-------------------------------------------------------
+Example: localhost:8080/actuator //just by importing the library it has this endpoint
+Changes to be made in the application properties
+//Below lines are for actuator info endpoint details
+info.app.name=Spring Boot Master Class Course
+info.app.description=Master Spring Boot
+info.app.version=1.0.0
+info.company.name=Amigoscode
+
+//To enable more endpoint of the actuator
+management.endpoint.health.show-details=always
+management.endpoints.web.exposure.include=health,info,prometheus
+
+Micrometer us used for charts add the dependency for that in pom.xml
+
+-------------------------Manipulating the application properties according to the environment------------------------
+1) We can have multiple application properties suppose for dev, local, prod
+2) We can copy the initial and have different config
+3) It is also known as profile to point to a profile you need to add com
+There are three application files
+    application.properties
+    application-dev.properties
+    application-prod.yaml
+4) Go to the edit configration in the Program arguments: add the following  --spring.profiles.active=dev
+*Note* we can also use the YAML syntax in the application properties
+
+
+----------------------Packaging by Maven as the JAR file---------------------------------
+Demo->Lifecycle->install
+It would do the following steps clean,validate,compile,test,package,verify
+Drop the jar file to the target folder
+*Note* by CMD just in terminal go to the root of project type mvnm clean install
+
+To run that jar file:
+Navigate to target folder ->
+run the cmd java -jar "//here the jarfile created name" "we can also add command line argument here like  --spring.profiles.active=dev" "--server.port=3000"
